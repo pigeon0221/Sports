@@ -3,13 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALex's Sports Channel</title>
+    <title>Alex's Sports Channel</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-sizing: border-box;
+            transition: transform 0.3s ease;
+        }
+        .form-container.hidden {
+            transform: translateY(-100%);
+        }
+        .form-container input {
+            flex: 1;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .form-container button {
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .toggle-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
         }
         .iframe-container {
             position: absolute;
@@ -41,17 +82,51 @@
     </style>
 </head>
 <body>
+<button class="toggle-button" onclick="toggleForm()">Toggle Form</button>
+
+<div class="form-container">
+    <input type="text" id="url1" placeholder="Enter URL for Top Left">
+    <input type="text" id="url2" placeholder="Enter URL for Top Right">
+    <input type="text" id="url3" placeholder="Enter URL for Bottom Left">
+    <input type="text" id="url4" placeholder="Enter URL for Bottom Right">
+    <button onclick="loadIframes()">Submit</button>
+</div>
+
 <div class="iframe-container top-left">
-    <iframe src="https://embedstreams.me/nfl/new-york-giants-vs-minnesota-vikings-stream-1" scrolling="no" frameborder="0" allowfullscreen></iframe>
+    <iframe id="iframe1" src="" scrolling="no" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="iframe-container top-right">
-    <iframe src="https://embedstreams.me/nfl/indianapolis-colts-vs-houston-texans-stream-1" scrolling="no" frameborder="0" allowfullscreen></iframe>
+    <iframe id="iframe2" src="" scrolling="no" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="iframe-container bottom-left">
-    <iframe src="https://embedstreams.me/nfl/miami-dolphins-vs-jacksonville-jaguars-stream-1" scrolling="no" frameborder="0" allowfullscreen></iframe>
+    <iframe id="iframe3" src="" scrolling="no" frameborder="0" allowfullscreen></iframe>
 </div>
 <div class="iframe-container bottom-right">
-    <iframe src="https://embedstreams.me/us-open/us-open-stream-1" scrolling="no" frameborder="0" allowfullscreen></iframe>
+    <iframe id="iframe4" src="" scrolling="no" frameborder="0" allowfullscreen></iframe>
 </div>
+
+<script>
+    function loadIframes() {
+        // Get URL values from input fields
+        const url1 = document.getElementById('url1').value;
+        const url2 = document.getElementById('url2').value;
+        const url3 = document.getElementById('url3').value;
+        const url4 = document.getElementById('url4').value;
+
+        // Set the src attribute of iframes
+        document.getElementById('iframe1').src = url1;
+        document.getElementById('iframe2').src = url2;
+        document.getElementById('iframe3').src = url3;
+        document.getElementById('iframe4').src = url4;
+
+        // Hide the form container
+        document.querySelector('.form-container').classList.add('hidden');
+    }
+
+    function toggleForm() {
+        const formContainer = document.querySelector('.form-container');
+        formContainer.classList.toggle('hidden');
+    }
+</script>
 </body>
 </html>
